@@ -1,2 +1,2 @@
 # TDE_BubbleandeQuicksort
-TDE de programação imperativa (Bubble sort &amp; quicksort)
+TDE de programação imperativa (Bubble sort e quicksort), linguagem C
