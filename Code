@@ -1,0 +1,146 @@
+/* FELIPE VIGNOLI MATHIEU
+Trabalho de Programação Imperativa, bubble sort e quicksort.
+PUCPR*/
+
+#include <stdlib.h>
+#include <Windows.h>
+#include <stdio.h>
+#include <locale.h>
+
+#define MAX 100
+
+void le_vetor();
+void defina_funcao(int vet[], int tamanho);
+void imprime_vetor(int vet[], int tamanho);
+void QuickSort(int vet[], int esquerda, int direita, int tamanho_vetor);
+
+int main()
+{
+	setlocale(LC_ALL,"Portuguese");
+
+	le_vetor();
+
+	printf("\n\n");
+	system("pause");
+	return 0;
+}
+
+void le_vetor()
+{
+	int i, x;
+	int vet[MAX];
+
+	printf("Defina o tamanho do vetor: ");
+	scanf_s("%d", &x);
+	printf("\nEscreva os valores do vetor:\n");
+	
+	for (i = 0; i < x; i++)
+	{
+		printf("Vet[%d] = ", i + 1);
+		scanf_s("%d", &vet[i]);
+	}
+
+	defina_funcao(vet, x);
+}
+
+void defina_funcao(int vet[], int tamanho)
+{
+	int c;
+	int i = 0, j = 0;
+	int swap = 0;
+	int direita = tamanho - 1, esquerda = 0;
+
+	system("cls");
+
+	printf("Escolha a operação que será usada:");
+	printf("\n\n1. Bubble Sort.");
+	printf("\n2. QuickSort.\n");
+	scanf_s("%d", &c);
+
+	switch (c)
+	{
+		//Caso 1 = Bubble Sort.
+	case 1:		
+		imprime_vetor(vet, tamanho);
+
+		while(i < tamanho)
+		{
+			while(j < tamanho - i - 1)
+			{
+				if (vet[j] > vet[j + 1])
+				{
+					swap = vet[j];
+					vet[j] = vet[j + 1];
+					vet[j + 1] = swap;
+					swap = 0;
+				}
+				imprime_vetor(vet, tamanho);
+				j++;
+			}
+			j = 0;
+			i++;
+		}
+
+		break;
+
+	//Caso 2 =  Quick Sort.
+	case 2:
+
+		imprime_vetor(vet, tamanho);
+		QuickSort(vet, esquerda, direita, tamanho);
+
+		break;
+	}
+}
+
+void imprime_vetor(int vet[], int tamanho)
+{
+	int i;
+
+	printf("\n");
+	for (i = 0; i < tamanho; i++)
+	{
+		printf(" %d", vet[i]);
+		Sleep(100);
+	}
+	printf("\n");
+}
+
+void QuickSort(int vet[], int esquerda, int direita, int tamanho_vetor)
+{
+	int t = tamanho_vetor;
+	int i = esquerda;
+	int j = direita;
+	int pivo = vet[(esquerda + direita) / 2];
+	int swap = 0;
+
+	while (i <= j)
+	{
+		while (vet[i] < pivo && i < direita)
+		{
+			i++;
+		}
+		while (vet[j] > pivo && j > esquerda)
+		{
+			j--;
+		}
+		if (i <= j)
+		{
+			swap = vet[i];
+			vet[i] = vet[j];
+			vet[j] = swap;
+			i++;
+			j--;
+			swap = 0;
+		}
+		imprime_vetor(vet, t);
+	}
+	if (j > esquerda)
+	{
+		QuickSort(vet, esquerda, j, t);
+	}
+	if (i < direita)
+	{
+		QuickSort(vet, i, direita, t);
+	}
+}
